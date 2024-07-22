@@ -42,7 +42,6 @@ class BeritaController extends Controller
     public function store(Request $request)
     {
         try {
-
             $validator = Validator::make($request->all(), [
                 'judul_berita' => 'required|string',
                 'deskripsi' => 'required|string',
