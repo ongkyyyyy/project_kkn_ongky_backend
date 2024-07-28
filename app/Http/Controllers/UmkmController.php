@@ -45,7 +45,7 @@ class UmkmController extends Controller
                 'nama_umkm' => 'required|string',
                 'deskripsi_umkm' => 'required|string',
                 'pemilik' => 'required|string',
-                'foto_umkm' => 'nullable|string',
+                'foto_umkm' => 'nullable|string|regex:/^data:image\/\w+;base64,/i',
             ]);
 
             if ($validator->fails()) {
@@ -85,29 +85,6 @@ class UmkmController extends Controller
         }
     }
 
-
-    //Show 1
-    public function show($id)
-    {
-        try {
-            $umkms = Umkm::find($id);
-
-            if (!$umkms) throw new \Exception("UMKM Not Found");
-
-            return response()->json([
-                "status" => true,
-                "message" => 'UMKM Found',
-                "data" => $umkms
-            ], 200);
-        } catch (\Exception $e) {
-            return response()->json([
-                "status" => false,
-                "message" => $e->getMessage(),
-                "data" => []
-            ], 400);
-        }
-    }
-
     public function update(Request $request, String $id)
     {
         try {
@@ -119,7 +96,7 @@ class UmkmController extends Controller
                 'nama_umkm' => 'string',
                 'deskripsi_umkm' => 'string',
                 'pemilik' => 'string',
-                'foto_umkm' => 'nullable|string',
+                'foto_umkm' => 'nullable|string|regex:/^data:image\/\w+;base64,/i',
             ]);
 
             if ($validator->fails()) {
